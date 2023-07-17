@@ -1,0 +1,113 @@
+\chapter{Introdução}
+
+\section{Figuras e Tabelas}
+Nos elementos flutuantes, as legendas devem estar alinhadas à esquerda com o comando \textbf{minipage}.
+
+\begin{verbatim}
+\begin{table}[!ht]
+    \centering
+    \begin{minipage}{0.7\textwidth}     <<<<<<<
+        \caption{\label{tabela:ComparativoFrameworks}
+        Comparação dos Frameworks}
+        \resizebox{\textwidth}{!}{
+            [...]
+        }
+        \caption*{\footnotesize Fonte: Elaborado pelo autor, 2023.}
+    \end{minipage}
+\end{table}
+\end{verbatim}
+
+\begin{table}[!ht]
+    \centering
+    \begin{minipage}{0.7\textwidth}
+        \caption{\label{tabela:ComparativoFrameworks}
+            Comparação dos Frameworks}
+        \resizebox{\textwidth}{!}{
+            \begin{tabular}{|l|c|c|c|}
+                \hline
+                                       & \textbf{MapReduce} & \textbf{Spark} & \textbf{Flink} \\
+                \hline
+                \textbf{Armazenamento} & Disco              & RAM            & RAM            \\
+                \hline
+                \textbf{Granularidade} & Grossa             & Grossa         & Fina           \\
+                \hline
+                \textbf{Estado}        & Sem                & Sem            & Com            \\
+                \hline
+                \textbf{Processamento} & Lote               & Micro lotes    & Stream         \\
+                \hline
+                \textbf{Volume}        & Finito             & Finito         & Infinito       \\
+                \hline
+                \textbf{Linguagem.}    & Java               & Scala          & Java           \\
+                \hline
+            \end{tabular}
+        }
+        \caption*{\footnotesize Fonte: Elaborado pelo autor, 2023.}
+    \end{minipage}
+\end{table}
+
+\section{Citação}
+
+\subsection{Final do texto}
+\begin{verbatim}
+No atual cenário tecnológico, dados se tornaram um ativo de 
+alto valor \cite{gunther2017debating}.
+\end{verbatim}
+
+No atual cenário tecnológico, dados se tornaram um ativo de alto valor \cite{gunther2017debating}.
+
+\subsection{Início do texto}
+\begin{verbatim}
+Segundo \textcite{gunther2017debating} Dados se tornaram um 
+ativo de alto valor no atual cenário tecnológico.
+\end{verbatim}
+
+Segundo \textcite{gunther2017debating} Dados se tornaram um ativo de alto valor no atual cenário tecnológico.
+
+\section{Alíneas}
+Para criar alíneas utilize o comando enumerate, nunca description ou itemize. As alínea devem encerrar com um ponto e vírgula e a última deve encerrar com um ponto final.
+
+\begin{verbatim}
+\begin{enumerate}
+    \item Primeiro item da alínea;
+    \item Segundo item da alínea;
+    \item Terceiro item da alínea.
+    \begin{enumerate}
+        \item Primeiro item da subalínea;
+        \item Segundo item da subalínea;
+        \item Terceiro item da subalínea.
+    \end{enumerate}
+\end{enumerate}
+\end{verbatim}
+
+\begin{enumerate}
+    \item Primeiro item da alínea;
+    \item Segundo item da alínea;
+    \item Terceiro item da alínea.
+          \begin{enumerate}
+              \item Primeiro item da subalínea;
+              \item Segundo item da subalínea;
+              \item Terceiro item da subalínea.
+          \end{enumerate}
+\end{enumerate}
+
+\section{Customização}
+
+Esse pacote pode ser customizado passando argumentos da seguinte forma:
+\begin{verbatim}
+\usepackage[acronym, glossaries, index, labelref, debug]{CEFET}
+\end{verbatim}
+
+\begin{enumerate}
+    \item \textbf{acronym:} adiciona o suporte para lista de abreviaturas e siglas;
+    \item \textbf{glossaries:} adiciona o suporte para glossário;
+    \item \textbf{index:} adiciona o suporte para índice de assunto;
+    \item \textbf{labelref:} \verb|\ref{fig:1}| retorna Figura 1 em vez de 1 para todas as referências;
+    \item \textbf{debug:} Ativa as réguas e os quadros para melhorar a visualização das medidas.
+\end{enumerate}
+
+\section{Namedref}
+\begin{verbatim}
+Exemplo de utilização do \textbf{namedref} para a 
+\ref{tabela:ComparativoFrameworks}.
+\end{verbatim}
+Exemplo de utilização do \textbf{namedref} para a \ref{tabela:ComparativoFrameworks}.

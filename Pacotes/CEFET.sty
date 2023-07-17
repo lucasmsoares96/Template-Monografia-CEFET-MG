@@ -1,0 +1,376 @@
+% Baseado na classe Report
+% https://www.tug.org/svn/texlive/trunk/Master/texmf-dist/tex/latex/base/report.cls?view=co
+% Lucas Maritins Soares
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{CEFET}[Normas do CEFET para monografias]
+
+\newif\if@CEFET@index
+\newif\if@CEFET@glossaries
+\newif\if@CEFET@acronym
+\newif\if@CEFET@labelref
+\newif\if@CEFET@debug
+
+\DeclareOption{index}{\@CEFET@indextrue}
+\DeclareOption{glossaries}{\@CEFET@glossariestrue}
+\DeclareOption{acronym}{\@CEFET@acronymtrue}
+\DeclareOption{labelref}{\@CEFET@labelreftrue}
+\DeclareOption{debug}{\@CEFET@debugtrue}
+
+\ProcessOptions\relax
+
+\if@CEFET@debug
+    \usepackage{fgruler}
+    \usepackage{showframe}
+    \usepackage{layout}
+\fi
+
+\if@CEFET@index
+    % Índice
+    \RequirePackage{imakeidx}
+    \makeindex[columns=1, title=Índice de Assunto]
+    % \makeindex[columns=1, title=Índice de Assunto, options= -s indice.ist]
+    % TODO: indice.ist não funciona
+    % TODO: adicionar espaçamento entre itens
+    % TODO: concertar link
+\fi
+
+\if@CEFET@glossaries
+    % Glossário
+    \usepackage{glossaries}
+    \makeglossaries
+    % TODO: tirar negrito
+    % TODO: alinhas à direita
+    % TODO: concertar numeração
+\fi
+
+\if@CEFET@acronym
+    % Siglas e simbolos
+    \RequirePackage{acronym}
+    \renewcommand*{\aclabelfont}[1]{\textsf{\acsfont{#1}}}
+    \renewenvironment{AC@deflist}[1]%
+    {\begin{description}[leftmargin=!, labelwidth=2.5cm, labelsep=0pt, itemindent=0pt, font=\normalfont]}%
+            {\end{description}}
+\fi
+
+% alinharmento das legendas
+\RequirePackage[
+    font=normalsize,
+    justification=raggedright,
+    singlelinecheck=false,
+    format=hang,
+    labelsep=endash,
+    figurewithin=none,   % contagem global das figuras
+    tablewithin=none,    % contagem global das tabelas
+]{caption}
+
+\if@CEFET@labelref
+    \renewcommand{\p@chapter}{Capítulo }
+    \renewcommand{\p@section}{Seção }
+    \renewcommand{\p@subsection}{Subseção }
+    \renewcommand{\p@subsubsection}{Subsubseção }
+    \renewcommand{\p@paragraph}{Parágrafo }
+    \renewcommand{\p@subparagraph}{Subparágrafo }
+    \renewcommand{\p@figure}{Figura }
+    \renewcommand{\p@table}{Tabela }
+\fi
+
+% Configuração para texto em Português
+\RequirePackage[english, brazil]{babel}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+
+% Configurações de margens
+\RequirePackage[left=3cm,right=2cm,top=3cm,bottom=2cm]{geometry}
+
+% Configurações de espaçamento
+\RequirePackage{indentfirst}
+\RequirePackage{setspace}
+\setlength{\parindent}{1.25cm}
+% \onehalfspacing
+\setstretch{1.5}
+\frenchspacing
+
+% Dedicatória
+\newcommand{\dedication}[1]{
+    \cleardoublepage\null\noindent\vfill\begin{flushright}\begin{minipage}{7cm}
+            #1
+        \end{minipage}\end{flushright}\vspace{3cm}
+}
+
+% Epígrafe
+\newcommand{\epigraph}[2]{
+    \cleardoublepage\null\noindent\vfill\begin{flushright}\begin{minipage}{7cm}
+            \textit{``#1''}
+            \\ \\
+            \null\hfill\textbf{#2}
+        \end{minipage}\end{flushright}\vspace{3cm}
+}
+
+% Links
+\RequirePackage[hidelinks]{hyperref}
+\urlstyle{same}
+
+% Tabelas com multiplas linhas
+\RequirePackage{multirow}
+
+% Imagens
+\RequirePackage{graphicx}
+\RequirePackage{subcaption}
+% No topo da página
+\setlength{\@fptop}{0pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+
+% Texto em maiúsculo
+\RequirePackage{textcase}
+
+% referencias ABNT
+\RequirePackage[style=abnt]{biblatex}
+
+% aspas duplas
+\RequirePackage{csquotes}
+\MakeOuterQuote{"}
+
+% mudar fonte para helvética
+\RequirePackage[scaled]{helvet}
+\renewcommand\familydefault{\sfdefault}
+
+% Remover hifenização
+% \tolerance=1  
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+% customização do sumário
+\renewcommand\l@chapter[2]{\@dottedtocline{1}{0pt}{4em}{\bf \uppercase{#1}}{#2}}
+\renewcommand\l@section[2]{\@dottedtocline{1}{0pt}{4em}{\bf #1}{#2}}
+\renewcommand\l@subsection[2]{\@dottedtocline{1}{0pt}{4em}{\bf #1}{#2}}
+\renewcommand\l@subsubsection[2]{\@dottedtocline{1}{0pt}{4em}{\bf #1}{#2}}
+\renewcommand\l@figure[2]{\@dottedtocline{1}{0pt}{5.5em}{#1}{#2}}
+\renewcommand\l@table[2]{\@dottedtocline{1}{0pt}{5.5em}{#1}{#2}}
+\DeclareCaptionListFormat{figureformat}{Figura\hfill#2 -- }
+\DeclareCaptionListFormat{tableformat}{Tabela\hfill#2 -- }
+\captionsetup[figure]{listformat=figureformat}
+\captionsetup[table]{listformat=tableformat}
+\setcounter{secnumdepth}{3}
+\addto\captionsbrazil{
+    \renewcommand{\listfigurename}{Lista de Ilustrações}
+}
+
+% resumo
+\@ifclassloaded{book}{
+    \newenvironment{abstract}{
+        \newpage
+        \chapter*{\MakeUppercase{\abstractname}}
+        \setlength{\parindent}{0pt}
+    }
+}{
+    \renewenvironment{abstract}{
+        \newpage
+        \chapter*{\MakeUppercase{\abstractname}}
+        \setlength{\parindent}{0pt}
+    }
+}
+
+% Alíneas
+\RequirePackage{enumitem}
+\RequirePackage{calc}
+\setlist{nosep}
+% Define o estilo para o primeiro nível
+\setlist[enumerate,1]{label={\alph*)},topsep=0pt,itemsep=0pt,leftmargin=\parindent+\labelwidth-\labelsep}
+% Define o estilo para o segundo nível
+\setlist[enumerate,2]{label={--},topsep=0pt,itemsep=0pt,leftmargin=*}
+
+% Epaçamentos das Imagens
+\setlength{\intextsep}{\baselineskip}
+\setlength{\floatsep}{\baselineskip}
+\setlength{\textfloatsep}{\baselineskip}
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{0pt}
+
+% Espaçamento dos títulos
+\def\@makechapterhead#1{
+    {\parindent \z@ \raggedright \normalfont
+            \ifnum \c@secnumdepth >\m@ne
+                \normalsize
+                \bfseries \thechapter \ \enspace
+            \fi
+            \interlinepenalty\@M
+            \bfseries \MakeUppercase{#1}\par\nobreak
+            \vskip \baselineskip
+        }
+}
+
+\def\@makeschapterhead#1{
+    {\parindent \z@ \centering
+            \normalfont
+            \interlinepenalty\@M
+            \normalsize
+            \bfseries  \MakeUppercase{#1}\par\nobreak
+            \vskip \baselineskip
+        }
+}
+
+\renewcommand\section{
+  \@startsection {section}{1}{\z@}
+  {-\baselineskip}
+  {\baselineskip}
+  {\normalfont\normalsize\bfseries}
+ }
+
+\renewcommand\subsection{
+    \@startsection{subsection}{2}{\z@}
+    {-\baselineskip}
+    {\baselineskip}
+    {\normalfont\normalsize\bfseries}
+}
+
+\renewcommand\subsubsection{
+    \@startsection{subsubsection}{3}{\z@}
+    {-\baselineskip}
+    {\baselineskip}
+    {\normalfont\normalsize\bfseries}
+}
+
+%% Numeração
+
+% remove a configuração padrão dos capítulos
+\renewcommand\chapter{
+  \if@openright
+      \cleardoublepage
+  \else
+      \clearpage
+  \fi
+  \global\@topnum\z@
+  \@afterindentfalse
+  \secdef\@chapter\@schapter
+ }
+
+% define a paginação no topo superior direito
+\def\ps@plain{
+    \let\@mkboth\@gobbletwo
+    \let\@oddfoot\@empty
+    \def\@oddhead{\hfil\thepage}
+    \let\@evenhead\thepage
+    \let\@evenfoot\@oddfoot
+}
+
+% define os limites dos componentes pre-textuais, textuais e pos-textuais
+\newcommand{\pretextual}{
+    \clearpage
+    \pagestyle{empty}
+}
+
+\newcommand{\textual}{
+    \clearpage
+    \setcounter{page}{1}
+    \pagestyle{plain}
+}
+
+\newcommand{\postextual}{
+    \clearpage
+    \pagestyle{plain}
+    \def\@schapter##1{
+        \phantomsection
+        \addcontentsline{toc}{chapter}{\protect\numberline{}##1}
+        \if@twocolumn
+            \@topnewpage[\@makeschapterhead{##1}]%
+        \else
+            \@makeschapterhead{##1}%
+            \@afterheading
+        \fi
+    }
+}
+
+% Criar variáveis da Capa
+\DeclareRobustCommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+\DeclareRobustCommand*{\institution}[1]{\gdef\@institution{#1}}
+\DeclareRobustCommand*{\location}[1]{\gdef\@location{#1}}
+\DeclareRobustCommand*{\advisor}[1]{\gdef\@advisor{#1}}
+\DeclareRobustCommand*{\coadvisor}[1]{\gdef\@coadvisor{#1}}
+\DeclareRobustCommand*{\committeeone}[1]{\gdef\@committeeone{#1}}
+\DeclareRobustCommand*{\committeetwo}[1]{\gdef\@committeetwo{#1}}
+\DeclareRobustCommand*{\committeethree}[1]{\gdef\@committeethree{#1}}
+\DeclareRobustCommand*{\committeedate}[1]{\gdef\@committeedate{#1}}
+\DeclareRobustCommand*{\preamble}[1]{\gdef\@preamble{#1}}
+
+
+% Capa
+\renewcommand{\maketitle}{
+    \begin{titlepage}
+        \center
+        \bfseries
+        \MakeUppercase{\@institution} \\
+        \vspace*{\baselineskip}
+        \@author
+        \vfill
+        \begin{center}
+            \MakeUppercase{\@title} \\
+            \@subtitle
+        \end{center}
+        \vfill
+        \@location \\
+        \@date
+        \vspace*{1cm}
+    \end{titlepage}
+}
+
+% folha de rosto
+\newcommand{\makecover}{
+    \begin{titlepage}
+        \centering
+        \bfseries
+        \MakeUppercase{\@author}
+        \vspace*{\fill}
+        \begin{center}
+            \MakeUppercase{\@title} \\
+            \@subtitle
+        \end{center}
+        \vspace{\baselineskip}
+        \mdseries
+        \noindent\hfill\begin{minipage}{.5\textwidth}
+            \@preamble \\ \\
+            \@advisor \\
+            \@coadvisor
+        \end{minipage}
+        \vspace*{\fill} \\
+        \bfseries
+        \MakeUppercase{\@location} \\
+        \@date
+        \vspace*{1cm}
+    \end{titlepage}
+}
+
+% Folha de Aprovação
+\newcommand{\makeapproval}{
+    \noindent
+    \begin{titlepage}
+        \centering
+        \bfseries
+        \MakeUppercase{\@author}
+        \vspace*{\fill}
+        \begin{center}
+            \MakeUppercase{\@title} \\
+            \@subtitle
+        \end{center}
+        \vspace{\baselineskip}
+        \mdseries
+        \noindent\hfill\begin{minipage}{.5\textwidth}
+            \@preamble \\
+        \end{minipage}
+        \vfill
+        {\raggedright Aprovado em \@committeedate. \\}
+        \vfill\vfill
+        \rule{0.7\textwidth}{0.4pt}\\
+        \@committeeone \\
+        \vfill
+        \rule{0.7\textwidth}{0.4pt}\\
+        \@committeetwo \\
+        \vfill
+        \rule{0.7\textwidth}{0.4pt}\\
+        \@committeethree \\
+        \vspace*{1cm}
+    \end{titlepage}
+}
+
+\endinput

@@ -1,0 +1,3 @@
+[submodule "Pacotes/biblatex-abnt"]
+	path = Pacotes/biblatex-abnt
+	url = https://github.com/abntex/biblatex-abnt.git

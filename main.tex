@@ -1,0 +1,50 @@
+\documentclass[a4paper,12pt]{report}
+% \usepackage[acronym, labelref, glossaries, index, debug]{CEFET}
+\usepackage[acronym, labelref]{CEFET}
+\addbibresource{Referencias.bib}
+\input{Dados}
+% \input{3-Pos-Textual/Glossario.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Se gostou desse template, deixe sua estrela no GitHub:
+% https://github.com/lucasmsoares96/Template-Monografia-CEFET-MG
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{lipsum}    % gera texto aleatório (remover)
+
+\begin{document}
+\maketitle % Capa                    (obrigatório)
+% Lombada                            (opcional)
+
+\pretextual
+\makecover % folha de rosto               (obrigatório)
+\input{1-Pre-Textual/Errata.tex}%         (opcional)
+\makeapproval %                           (obrigatório)
+\input{1-Pre-Textual/Dedicatoria.tex}%    (opcional)
+\input{1-Pre-Textual/Agradecimentos.tex}% (opcional)
+\input{1-Pre-Textual/Epigrafe.tex}%       (opcional)
+\input{1-Pre-Textual/Resumo.tex} %        (obrigatório)
+\input{1-Pre-Textual/Abstract.tex} %      (obrigatório)
+\listoffigures %                          (opcional)
+\listoftables  %                          (opcional)
+\input{1-Pre-Textual/Siglas.tex} %        (opcional)
+\input{1-Pre-Textual/Simbolos.tex} %      (opcional)
+\tableofcontents %                        (obrigatório)
+
+\textual
+\input{2-Textual/1-Introducao.tex}
+\input{2-Textual/2-Referencial-Teorico.tex}
+% \input{2-Textual/3-Metodologia.tex}
+% \input{2-Textual/4-Resultados.tex}
+% \input{2-Textual/5-Conclusao.tex}
+
+\postextual
+\clearpage\pagestyle{empty}
+\printbibliography %                 (obrigatório)
+% \printglossaries %                   (opcional)
+\clearpage\pagestyle{plain}
+\input{3-Pos-Textual/Apendice.tex} % (opcional)
+\input{3-Pos-Textual/Anexo.tex} %    (opcional)
+% \printindex %                        (opcional)
+
+\end{document}
