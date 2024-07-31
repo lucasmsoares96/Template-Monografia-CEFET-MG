@@ -14,7 +14,7 @@ Para utilizar localmente, verifique-se possui o pacote `texlive-full` instalado 
 
 #### Clone o repositório e os submodules
 ```
-git clone --recurse-submodules git@github.com:lucasmsoares96/Template-Monografia-CEFET-MG.git  
+git clone --recurse-submodules https://github.com/lucasmsoares96/Template-Monografia-CEFET-MG.git
 ```
 
 #### Visual Studio Code
